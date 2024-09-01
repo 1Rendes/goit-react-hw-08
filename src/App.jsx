@@ -1,24 +1,51 @@
-import ContactForm from "./components/ContackForm/ContactForm";
-import SearchBox from "./components/SearchBox/SearchBox";
-import ContactList from "./components/ContactList/ContactList";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { apiGetAllContacts } from "./redux/contactsOps";
+import { lazy, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import { RestrictedRoute } from "./RestrictedRoute";
+import { PrivateRoute } from "./PrivateRoute";
+import { refreshUser } from "./redux/auth/operations";
+import { Layout } from "./Layout";
+
+
+const Contacts = lazy(() => import("./pages/Contacts"));
+const HomePage = lazy(() => import("./pages/HomePage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const RegistrationPage = lazy(() => import("./pages/RegistrationPage"));
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(apiGetAllContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
   return (
-    <div>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <SearchBox />
-      <ContactList />
-    </div>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/register"
+          element={
+            <RestrictedRoute
+              redirectTo="/contacts"
+              component={<RegistrationPage />}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute redirectTo="/login" component={<Contacts />} />
+          }
+        />
+      </Routes>
+    </Layout>
   );
 };
 

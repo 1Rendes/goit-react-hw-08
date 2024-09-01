@@ -1,9 +1,9 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import {
   apiDeleteContact,
   apiGetAllContacts,
   apiPostContact,
-} from "./contactsOps";
+} from "./operations";
 
 const INITIAL_STATE = {
   items: [],
@@ -57,15 +57,4 @@ const contactsSlice = createSlice({
   },
 });
 
-export const selectContacts = (state) => state.contacts.items;
-export const { addContact, deleteContact } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
-export const selectNameFilter = (state) => state.filters.name;
-export const selectFilteredContacts = createSelector(
-  [selectContacts, selectNameFilter],
-  (list, statusFilter) => {
-    return list.filter((item) =>
-      item.name.toLowerCase().includes(statusFilter.toLowerCase())
-    );
-  }
-);

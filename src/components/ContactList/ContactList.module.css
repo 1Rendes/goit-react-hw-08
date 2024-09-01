@@ -3,5 +3,5 @@
   display: flex;
   flex-wrap: wrap;
   list-style-type: none;
-  gap: 15px;
+  max-width: 1280px;
 }
