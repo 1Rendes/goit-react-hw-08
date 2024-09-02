@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
-import css from "./Auth.module.css";
+import css from "./AuthNav.module.css";
 
-const Auth = () => {
+const AuthNav = () => {
   return (
     <div className={css.authLinks}>
       <NavLink to="/login" className={css.link}>
@@ -14,4 +14,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default AuthNav;

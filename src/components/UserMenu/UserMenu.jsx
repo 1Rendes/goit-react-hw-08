@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 import { logOut } from "../../redux/auth/operations";
-import css from "./UserBar.module.css";
+import css from "./UserMenu.module.css";
 
-const UserBar = () => {
+const UserMenu = () => {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logOut());
@@ -16,4 +16,4 @@ const UserBar = () => {
   );
 };
 
-export default UserBar;
+export default UserMenu;
